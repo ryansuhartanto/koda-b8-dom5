@@ -77,7 +77,20 @@
             padding-inline: 1rem;
           }
         }
+
+        &>button[type="submit"] {
+          border: none;
+          border-radius: 100rem;
+          background-color: black;
+          color: white;
+          font-size: inherit;
+
+          width: 100%;
+          padding: 1rem;
+          margin-block: 1rem;
+        }
       }
+
     }
   </style>
 </head>
@@ -87,11 +100,25 @@
     <div>
       <label for="password">Password</label>
       <div class="input-field">
-        <input type="password" name="password" id="password" autocomplete="current-password">
+        <input type="password" name="password" id="password" autocomplete="new-password">
         <button type="button" aria-label="Toggle password visibility">
           <i data-feather="eye"></i>
         </button>
       </div>
+    </div>
+
+    <div>
+      <label for="password-confirm">Confirm Password</label>
+      <div class="input-field">
+        <input type="password" name="password-confirm" id="password-confirm" autocomplete="new-password">
+        <button type="button" aria-label="Toggle password visibility">
+          <i data-feather="eye"></i>
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <button type="submit">Submit</button>
     </div>
   </form>
 
@@ -99,6 +126,7 @@
     feather.replace();
 
     const inputPassword = document.querySelector('input[name="password"]');
+    const inputPasswordConfirm = document.querySelector('input[name="password-confirm"]');
 
     function updatePasswordVisibility(passwordInput, visibilityToggle) {
       const isPasswordVisible = passwordInput.type === 'text';
@@ -111,6 +139,9 @@
 
     inputPassword.nextElementSibling.addEventListener('click', () => {
       updatePasswordVisibility(inputPassword, inputPassword.nextElementSibling);
+    });
+    inputPasswordConfirm.nextElementSibling.addEventListener('click', () => {
+      updatePasswordVisibility(inputPasswordConfirm, inputPasswordConfirm.nextElementSibling);
     });
   </script>
 </body>
