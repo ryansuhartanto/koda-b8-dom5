@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100dvh;
+      display: grid;
+      place-content: center;
+    }
+
+    form {
+      font-size: 1rem;
+    }
+
+    form>div {
+      display: flex;
+      align-items: center;
+
+      border: 1px solid black;
+      border-radius: 100rem;
+      overflow: hidden;
+    }
+
+    input {
+      border: none;
+      font-size: inherit;
+      
+      padding: 1em;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      display: flex;
+      font-size: inherit;
+
+      padding-inline: 1em;
+    }
+  </style>
+</head>
+
+<body>
+  <form>
+    <div>
+      <input type="password" name="password" autocomplete="current-password">
+      <button type="button">
+        <i data-feather="eye"></i>
+      </button>
+    </div>
+  </form>
+
+  <script>
+    feather.replace();
+
+    const visibilityToggle = document.querySelector('button');
+    const passwordInput = document.querySelector('input');
+
+    visibilityToggle.addEventListener('click', () => {
+      const isPasswordVisible = passwordInput.type === 'text';
+
+      passwordInput.type = isPasswordVisible ? 'password' : 'text';
+      visibilityToggle.innerHTML = `<i data-feather="${isPasswordVisible ? 'eye' : 'eye-off'}"></i>`;
+
+      feather.replace();
+    });
+  </script>
+</body>
+
+</html>
