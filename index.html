@@ -21,39 +21,63 @@
       min-height: 100dvh;
       display: grid;
       place-content: center;
+
+      font-family: system-ui, sans-serif;
     }
 
     form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      width: 20rem;
+
       font-size: 1rem;
-    }
 
-    form>div {
-      display: flex;
-      align-items: center;
 
-      border: 1px solid black;
-      border-radius: 100rem;
-      overflow: hidden;
-    }
+      &>div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
 
-    input {
-      border: none;
-      font-size: inherit;
-      
-      padding: 1em;
+        &>label {
+          margin-inline: 1rem;
+          font-size: 0.875rem;
+        }
 
-      &:focus {
-        outline: none;
+        &>div.input-field {
+          display: flex;
+          align-items: center;
+
+          border: 1px solid black;
+          border-radius: 100rem;
+          overflow: hidden;
+
+          &>input {
+            border: none;
+            font-size: inherit;
+
+            width: 100%;
+            padding: 1rem;
+
+            &:focus {
+              outline: none;
+            }
+          }
+
+          &>button {
+            background: none;
+            border: none;
+            display: grid;
+            place-content: center;
+            font-size: inherit;
+
+            width: fit-content;
+            height: 100%;
+            padding-inline: 1rem;
+          }
+        }
       }
-    }
-
-    button {
-      background: none;
-      border: none;
-      display: flex;
-      font-size: inherit;
-
-      padding-inline: 1em;
     }
   </style>
 </head>
@@ -61,26 +85,32 @@
 <body>
   <form>
     <div>
-      <input type="password" name="password" autocomplete="current-password">
-      <button type="button">
-        <i data-feather="eye"></i>
-      </button>
+      <label for="password">Password</label>
+      <div class="input-field">
+        <input type="password" name="password" id="password" autocomplete="current-password">
+        <button type="button" aria-label="Toggle password visibility">
+          <i data-feather="eye"></i>
+        </button>
+      </div>
     </div>
   </form>
 
   <script>
     feather.replace();
 
-    const visibilityToggle = document.querySelector('button');
-    const passwordInput = document.querySelector('input');
+    const inputPassword = document.querySelector('input[name="password"]');
 
-    visibilityToggle.addEventListener('click', () => {
+    function updatePasswordVisibility(passwordInput, visibilityToggle) {
       const isPasswordVisible = passwordInput.type === 'text';
 
       passwordInput.type = isPasswordVisible ? 'password' : 'text';
       visibilityToggle.innerHTML = `<i data-feather="${isPasswordVisible ? 'eye' : 'eye-off'}"></i>`;
 
       feather.replace();
+    };
+
+    inputPassword.nextElementSibling.addEventListener('click', () => {
+      updatePasswordVisibility(inputPassword, inputPassword.nextElementSibling);
     });
   </script>
 </body>
