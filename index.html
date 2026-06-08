@@ -18,6 +18,8 @@
 
       color: inherit;
       text-decoration: none;
+      font-family: inherit;
+      font-size: inherit;
     }
 
     body {
@@ -25,7 +27,13 @@
       display: grid;
       place-content: center;
 
-      font-family: system-ui, sans-serif;
+      font-family: sans-serif;
+    }
+
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
     }
 
     body>header {
@@ -52,10 +60,34 @@
         @media (max-width: 768px) {
           flex-direction: column;
           align-items: start;
+
+          &:first-child {
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+          }
+
+          &[aria-expanded="false"] {
+            display: none;
+          }
         }
 
         &>h1 {
           font-size: 1.5rem;
+        }
+
+        &>button {
+          place-content: center;
+
+          padding-inline: 0.5rem;
+          width: fit-content;
+          height: 100%;
+
+          display: none;
+
+          @media (max-width: 768px) {
+            display: grid;
+          }
         }
 
         &>a {
@@ -95,7 +127,6 @@
 
           &>input {
             border: none;
-            font-size: inherit;
 
             width: 100%;
             padding: 1rem;
@@ -106,11 +137,8 @@
           }
 
           &>button {
-            background: none;
-            border: none;
             display: grid;
             place-content: center;
-            font-size: inherit;
 
             width: fit-content;
             height: 100%;
@@ -119,11 +147,9 @@
         }
 
         &>button[type="submit"] {
-          border: none;
           border-radius: 100rem;
           background-color: black;
           color: white;
-          font-size: inherit;
 
           width: 100%;
           padding: 1rem;
@@ -139,9 +165,12 @@
   <header>
     <div>
       <h1>Company</h1>
+      <button type="button" aria-label="Navigation menu">
+        <i data-feather="menu"></i>
+      </button>
     </div>
 
-    <div>
+    <div aria-expanded="false">
       <a href="#">Login</a>
       <a href="#">Sign Up</a>
     </div>
@@ -193,6 +222,13 @@
     });
     inputPasswordConfirm.nextElementSibling.addEventListener('click', () => {
       updatePasswordVisibility(inputPasswordConfirm, inputPasswordConfirm.nextElementSibling);
+    });
+
+    const navToggle = document.querySelector('header>div:first-child>button');
+    const navMenu = document.querySelector('header>div[aria-expanded]');
+    navToggle.addEventListener('click', () => {
+      const isNavMenuExpanded = navMenu.getAttribute('aria-expanded') === 'true';
+      navMenu.setAttribute('aria-expanded', String(!isNavMenuExpanded));
     });
   </script>
 </body>
