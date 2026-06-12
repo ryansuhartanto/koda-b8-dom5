@@ -205,8 +205,8 @@
   <script>
     feather.replace();
 
-    const inputPassword = document.querySelector('input[name="password"]');
-    const inputPasswordConfirm = document.querySelector('input[name="password-confirm"]');
+    const inputPassword = document.getElementById('password');
+    const inputPasswordConfirm = document.getElementById('password-confirm');
 
     function updatePasswordVisibility(passwordInput, visibilityToggle) {
       const isPasswordVisible = passwordInput.type === 'text';
